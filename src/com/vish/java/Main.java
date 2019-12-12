@@ -1,5 +1,6 @@
 package com.vish.java;
 
+import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -8,6 +9,7 @@ public class Main {
     private static int input;
     private static int random;
     private static boolean isStop = false;
+    private static int counter = 0;
 
 
     public static void main(String[] args) {
@@ -17,16 +19,27 @@ public class Main {
         //create random number and converts to int
         double randomNum = Math.random() * 100;
         random = (int) Math.round(randomNum);
-        System.out.println("Random: " + random);
+        //System.out.println("Random: " + random);
 
 
-
-        //lifecycle
-        while(!isStop) {
+        do {
+            //lifecycle
             start();
 
             logics();
-        }
+
+
+//            try {
+//
+//            } catch (InputMismatchException e){
+//                System.out.println(" ");
+//                System.out.println("Invalid input.. Only number are accepted !");
+//                System.out.println(" ");
+//                System.out.println(" ");
+//
+//                scanner = new Scanner(System.in);
+//            }
+        } while (!isStop);
     }
 
 
@@ -53,19 +66,23 @@ public class Main {
     }
 
     public static void userIn(){
-        System.out.println(" ");
-        System.out.println(" ");
-        System.out.print("Enter number : ");
+        if(counter != 10){
+            System.out.println(" ");
+            System.out.println(" ");
+            System.out.print("Enter number : ");
 
-        input = scanner.nextInt();
+            input = scanner.nextInt();
 
-        System.out.println(" ");
-        System.out.println(" ");
+            System.out.println(" ");
+            System.out.println(" ");
+        } else {
+            System.out.println(" ");
+            System.out.println("No more inputs.. You failed..");
+            end();
+        }
     }
 
     public static void logics(){
-        int counter = 0;
-
         //loop 10 times to check for the answer
         while(counter <= 10){
             counter++;
@@ -80,10 +97,11 @@ public class Main {
                 userIn();
             } else {
                 congrats();
-                counter = 10;
                 break;
             }
         }
+
+        counter = 1;
     }
 
 
@@ -103,6 +121,7 @@ public class Main {
     }
 
     public static void end(){
+        System.out.println(" ");
         System.out.println("Do you want to play again ?");
         System.out.println("[Y] - Yes / [N] - No");
 
@@ -112,8 +131,12 @@ public class Main {
         if(ans.equalsIgnoreCase("y")) {
             System.out.println(" ");
             System.out.println(" ");
+            System.out.println("-----------------------------------------------");
+            System.out.println(" ");
+            System.out.println(" ");
 
-//            start();
+            counter = 0;
+            isStop = false;
         } else if (ans.equalsIgnoreCase("n")){
             System.out.println(" ");
             System.out.println(" ");
